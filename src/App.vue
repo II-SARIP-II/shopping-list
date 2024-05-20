@@ -1,14 +1,14 @@
 <script setup>
-import BaseButton from './components/UI/BaseButton.vue'
-import BaseInput from './components/UI/BaseInput.vue'
+import BaseButton from './components/UI/BaseButton.vue';
+import BaseInput from './components/UI/BaseInput.vue';
 import BaseRadioButton from "@/components/UI/BaseRadioButton.vue";
 import BaseSelect from "@/components/UI/BaseSelect.vue";
 import CaTemplate from "@/components/UI/CaTemplate.vue";
-import { ref } from 'vue';
+import {ref} from 'vue';
 import CatListe from "@/components/UI/CatListe.vue";
 import ToBuyTemplate from "@/components/UI/ToBuyTemplate.vue";
 
-const options = {
+const options = ref({
   1: {
     id: 1,
     name: 'cat-sseroles',
@@ -93,46 +93,56 @@ const options = {
     price: 1020,
     picture: '/src/assets/chat-leur.png',
   },
-}
+});
+
 const cartItems = ref([]);
 
 const addToCart = (item) => {
   cartItems.value.push(item);
 };
 
+const updateOptions = (id) => {
+  const newName = prompt('Enter new name:');
+  if (newName) {
+    options.value[id].name = newName;
+  }
+};
 </script>
 
 <template>
   <main>
     <section class="ToBuy">
       <h1 class="title">À ACHETER</h1>
-      <ToBuyTemplate :cartItems="cartItems" />
+      <ToBuyTemplate :cartItems="cartItems" @update-options="updateOptions"/>
     </section>
     <hr class="separator">
     <section class="AllItems">
       <h1 class="title">AJOUTER UN CHAT</h1>
-      <CatListe :options="options" @add-to-cart="addToCart" />
+      <CatListe :options="options" @add-to-cart="addToCart"/>
     </section>
   </main>
 </template>
 
 <style scoped>
-main{
+main {
   display: flex;
   justify-content: space-around;
 }
-main section{
+
+main section {
   width: 50%;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
-.title{
+
+.title {
   margin-bottom: 30px;
   color: white;
   text-shadow: rgba(255, 255, 255, 0.50) 0px 3px 8px;
 }
-.separator{
+
+.separator {
   color: white;
   width: 1px;
   height: 500px;

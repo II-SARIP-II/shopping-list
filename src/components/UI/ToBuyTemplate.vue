@@ -8,7 +8,10 @@
         <div class="cart-item">
           <img :src="item.picture" alt="Picture" class="item-picture" />
           <div class="item-details">
-            <h3 class="item-name">{{ item.name }}</h3>
+            <div style="display: flex; gap: 10px; align-items: center">
+              <h3 class="item-name">{{ item.name }}</h3>
+              <TitleModify @modify-title="updateTitle(item.id)"></TitleModify>
+            </div>
             <p class="item-price">{{ item.price }}$</p>
           </div>
           <div>
@@ -26,12 +29,15 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { defineProps } from 'vue';
+import { defineProps, defineEmits } from 'vue';
 import BaseSelect from './BaseSelect.vue';
+import TitleModify from "@/components/UI/TitleModify.vue";
 
 const props = defineProps({
   cartItems: Array,
 });
+
+const emit = defineEmits(['update-options']);
 
 const updateSelected = (item, value) => {
   item.quantity = value;
@@ -42,6 +48,10 @@ const cartTotal = computed(() => {
     return total + (item.price * (item.quantity ? item.quantity : 1));
   }, 0);
 });
+
+const updateTitle = (id) => {
+  emit('update-options', id);
+};
 </script>
 
 

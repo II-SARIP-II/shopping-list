@@ -6,16 +6,19 @@
       <div v-for="item in cartItems" :key="item.id" class="loop">
         <hr class="top-line">
         <div class="cart-item">
-          <img :src="item.picture" alt="Picture" class="item-picture" />
+          <img :src="item.picture" alt="Picture" class="item-picture"/>
           <div class="item-details">
             <div style="display: flex; gap: 10px; align-items: center">
-              <h3 class="item-name">{{ item.name }}</h3>
-              <TitleModify @modify-title="updateTitle(item.id)"></TitleModify>
+              <h3 class="item-name" :class="{ 'strikethrough': item.isStriked }" @click="striped(item.id)">{{ item.name }}</h3>
+                <TitleModify @modify-title="updateTitle(item.id)"></TitleModify>
             </div>
-            <p class="item-price">{{ item.price }}$</p>
+            <div style="display: flex; justify-content: space-around; height: 40px; align-items: center">
+              <p class="item-price">{{ item.price }}$</p>
+              <DeleteArticle @delete-article="deleteArticle(item.id)"></DeleteArticle>
+            </div>
           </div>
           <div>
-            <BaseSelect v-model="item.quantity" @update:selected="updateSelected(item, $event)" />
+            <BaseSelect v-model="item.quantity" @update:selected="updateSelected(item, $event)"/>
           </div>
         </div>
       </div>
@@ -28,10 +31,11 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
-import { defineProps, defineEmits } from 'vue';
+import {ref, computed} from 'vue';
+import {defineProps, defineEmits} from 'vue';
 import BaseSelect from './BaseSelect.vue';
 import TitleModify from "@/components/UI/TitleModify.vue";
+import DeleteArticle from "@/components/UI/DeleteArticle.vue";
 
 const props = defineProps({
   cartItems: Array,
@@ -52,8 +56,20 @@ const cartTotal = computed(() => {
 const updateTitle = (id) => {
   emit('update-options', id);
 };
-</script>
+const deleteArticle = (id) => {
+  const index = props.cartItems.findIndex(item => item.id === id);
+  if (index !== -1) {
+    props.cartItems.splice(index, 1);
+  }
+};
 
+const striped = (id) => {
+  const item = props.cartItems.find(item => item.id === id);
+  if (item) {
+    item.isStriked = !item.isStriked;
+  }
+};
+</script>
 
 
 <style scoped>
@@ -83,7 +99,7 @@ const updateTitle = (id) => {
   flex-direction: column;
 }
 
-.top-line{
+.top-line {
   width: 80%;
   margin: 20px 0 20px 0;
 }
@@ -96,5 +112,9 @@ const updateTitle = (id) => {
 .item-price {
   font-size: 1em;
   font-weight: bold;
+}
+
+.strikethrough {
+  text-decoration: line-through;
 }
 </style>

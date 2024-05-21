@@ -1,10 +1,6 @@
 <script setup>
-import BaseButton from './components/UI/BaseButton.vue';
-import BaseInput from './components/UI/BaseInput.vue';
-import BaseRadioButton from "@/components/UI/BaseRadioButton.vue";
-import BaseSelect from "@/components/UI/BaseSelect.vue";
-import CaTemplate from "@/components/UI/CaTemplate.vue";
-import {ref} from 'vue';
+import { ref } from 'vue';
+import FontSelector from './components/UI/FontSelector.vue';
 import CatListe from "@/components/UI/CatListe.vue";
 import ToBuyTemplate from "@/components/UI/ToBuyTemplate.vue";
 
@@ -19,7 +15,7 @@ const options = ref({
   2: {
     id: 2,
     name: 'khachapuri',
-    description: 'this is a cat from Géorgia',
+    description: 'this is a cat from Georgia',
     price: 200,
     picture: '/src/assets/chat-georgien.png',
   },
@@ -107,13 +103,22 @@ const updateOptions = (id) => {
     options.value[id].name = newName;
   }
 };
+
+const selectedFont = ref('default-font');
+
+const updateFont = (font) => {
+  selectedFont.value = font === 'Default' ? 'default-font' : font.toLowerCase().replace(' ', '-');
+};
+
 </script>
 
 <template>
-  <main>
+  <body :class="selectedFont">
+  <main >
     <section class="ToBuy">
       <h1 class="title">À ACHETER</h1>
       <ToBuyTemplate :cartItems="cartItems" @update-options="updateOptions"/>
+      <FontSelector @font="updateFont"></FontSelector>
     </section>
     <hr class="separator">
     <section class="AllItems">
@@ -121,9 +126,24 @@ const updateOptions = (id) => {
       <CatListe :options="options" @add-to-cart="addToCart"/>
     </section>
   </main>
+  </body>
 </template>
 
 <style scoped>
+@import url('https://fonts.cdnfonts.com/css/bastian-script');
+@import url('https://fonts.cdnfonts.com/css/open-dyslexic');
+
+.default-font {
+  font-family: sans-serif;
+}
+
+.bastian-script {
+  font-family: 'Bastian Script', sans-serif;
+}
+
+.open-dyslexic {
+  font-family: 'Open Dyslexic', sans-serif;
+}
 main {
   display: flex;
   justify-content: space-around;

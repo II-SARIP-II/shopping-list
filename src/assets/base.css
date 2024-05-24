@@ -55,19 +55,40 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
+  padding: 0;
   font-weight: normal;
 }
 
-body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  transition:
-    color 0.5s,
-    background-color 0.5s;
-  line-height: 1.6;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+#app {
+  margin: 0 auto;
+  font-weight: normal;
+  background: var(--background);
+  color: var(--text);
+  text-shadow: var(--shadow);
+}
+
+#app:not(.dark) {
+  --text: #2c3e50;
+  --textlight: rgba(44, 62, 80, 0.51);
+  --complement: #fff;
+
+  --background: #f8f8f8;
+
+  --light-shadow: rgba(0, 0, 0, .05) 0px 0px 20px;
+  --small-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+  --shadow: rgba(0, 0, 0, .05) 0px 0px 5px, rgba(0, 0, 0, .1) 0px 0px 20px;
+  --accent-shadow: rgba(252, 162, 17, .05) 0px 0px 5px, rgba(252, 162, 17, .1) 0px 0px 20px;
+}
+
+#app.dark {
+  --text: #f1f1f1;
+  --textlight: rgba(183, 186, 189, 0.51);
+  --complement: #000;
+
+  --background: #0e1117;
+
+  --light-shadow: rgba(0, 0, 0, .1) 0px 0px 20px;
+  --small-shadow: rgba(255, 255, 255, 0.18) 0px 10px 10px -10px;
+  --shadow: rgba(255, 255, 255, .15) 0px 0px 5px, rgba(255, 255, 255, .3) 0px 0px 20px;
+  --accent-shadow: rgba(252, 162, 17, .05) 0px 0px 5px, rgba(252, 162, 17, .1) 0px 0px 20px;
 }

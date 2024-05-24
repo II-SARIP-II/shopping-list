@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import FontSelector from './components/UI/FontSelector.vue';
 import CatListe from "@/components/UI/CatListe.vue";
 import ToBuyTemplate from "@/components/UI/ToBuyTemplate.vue";
+import DarkThemeSwitch from "@/components/UI/DarkThemeSwitch.vue";
 
 const options = ref({
   1: {
@@ -114,7 +115,8 @@ const updateFont = (font) => {
 
 <template>
   <body :class="selectedFont">
-  <main >
+  <DarkThemeSwitch></DarkThemeSwitch>
+  <main>
     <section class="ToBuy">
       <h1 class="title">À ACHETER</h1>
       <ToBuyTemplate :cartItems="cartItems" @update-options="updateOptions"/>
@@ -130,19 +132,19 @@ const updateFont = (font) => {
 </template>
 
 <style scoped>
-@import url('https://fonts.cdnfonts.com/css/bastian-script');
+@import url('https://fonts.cdnfonts.com/css/dellova');
 @import url('https://fonts.cdnfonts.com/css/open-dyslexic');
 
 .default-font {
   font-family: sans-serif;
 }
 
-.bastian-script {
-  font-family: 'Bastian Script', sans-serif;
+.dellova {
+    font-family: 'Dellova', sans-serif;
 }
 
 .open-dyslexic {
-  font-family: 'Open Dyslexic', sans-serif;
+    font-family: 'Open-Dyslexic', sans-serif;
 }
 main {
   display: flex;
@@ -158,7 +160,6 @@ main section {
 
 .title {
   margin-bottom: 30px;
-  color: white;
   text-shadow: rgba(255, 255, 255, 0.50) 0px 3px 8px;
 }
 

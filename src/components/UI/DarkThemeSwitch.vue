@@ -8,11 +8,18 @@
 
 
 <script setup>
-import {computed, onMounted} from 'vue'
-import store from '@/store'
+import {computed, onMounted, watch} from 'vue'
+import store from "../../store/index.js";
 
 const dark = computed(()=>store.dark)
 
+watch(dark,()=>{
+    if (store.dark){
+        document.getElementById("app").classList.add("dark")
+    } else {
+        document.getElementById("app").classList.remove("dark")
+    }
+})
 function toggle () {
   localStorage.setItem('tp_ui-dark-theme', (dark.value) ? 'light' : 'dark')
   store.dark = !store.dark

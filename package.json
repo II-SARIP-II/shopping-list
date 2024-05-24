@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "store": "^2.0.12",
     "vue": "^3.4.21",
     "vue-feather": "^2.0.0",
     "vue-feather-icons": "^5.1.0",

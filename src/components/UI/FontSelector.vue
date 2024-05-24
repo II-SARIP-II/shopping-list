@@ -12,7 +12,7 @@
 <script setup>
 import { ref, defineEmits } from 'vue';
 
-const values = ["Default","Bastian Script", "Open Dyslexic"];
+const values = ["Default","Dellova", "Open Dyslexic"];
 
 const selected = ref(values[0]);
 
